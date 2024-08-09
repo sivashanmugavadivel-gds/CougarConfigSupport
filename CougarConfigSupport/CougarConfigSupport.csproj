@@ -1,0 +1,87 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<AssemblyName>CougarConfigLibrary</AssemblyName>
+		<Version>1.0.13</Version>
+		<Authors>SIVA SHANMUGA VADIVEL</Authors>
+		<PackageId>CougarConfigSupport</PackageId>
+		<Description>
+			CougarConfigSupport is a robust toolkit designed to facilitate the conversion and management of PLC configurations and OPC UA node structures. It provides seamless integration between Excel and JSON formats, ensuring data integrity and ease of use. The project is structured to handle complex hierarchical data, support extensive customization, and provide detailed error handling, making it a versatile solution for industrial automation and data management tasks.
+			-- Key Components and Features:
+			PLCConversion Class
+			1) Excel to JSON Conversion:
+
+			- Method1: ExcelToJSON(string filePath)
+			Functionality: Reads an Excel file containing PLC configuration data and converts it into a PLCDictionaryDataType object.
+			Error Handling: Throws an exception if the required sheet ("PLC_Configuration_Creator") is missing or if there is an error during the read operation.
+			Data Extraction: Extracts data from specified cells and populates a PLCDictionaryDataType object, including detailed mappings and nested node configurations.
+			
+			2) JSON to Excel Conversion:
+
+			- Method1: JSONToExcel(PLCDictionaryDataType plcConfig, string filePath)
+			Functionality: Takes a PLCDictionaryDataType object and creates an Excel file that mirrors the structure and data of the object.
+			Customization: Includes formatting options such as auto-fitting columns, setting bold and background colors for headers, and merging cells for better readability.
+			Utility Method:
+
+			- Method2: GetCellValue(object value)
+			Functionality: Provides a standardized way to handle and convert cell values to appropriate formats, ensuring consistency in how data is represented in Excel.
+			
+			OPCUAConversion Class
+			1) File to JSON Conversion:
+
+			Method1: FileToJSON(ExcelPackage package, List&lt;string&gt;	SubProcess, List&lt;string&gt;	DataType)
+			Functionality: Processes the "OPC Config Model" sheet from an Excel package, extracting hierarchical node data into an OPCNodeConfig object.
+			Error Handling: Provides detailed error messages if the sheet is missing or improperly formatted.
+			Data Handling: Supports nested structures, including sub-process types and data types, and processes additional child types through recursive methods.
+			
+			2) JSON to File Conversion:
+
+			Method1: JSONToFile(OPCNode opcNode, List&lt;OPCPage&gt;	pages)
+			Functionality: Converts an OPCNode object back into an Excel format, managing complex and simple node types, and ensuring hierarchical structures are maintained.
+			Node Information: Uses helper methods to determine node types (simple, complex, or object level) and processes accordingly.
+			
+			Helper Methods:
+
+			Method1: ProcessChildType(ExcelPackage package, string sheetName, string subProcessType, List&lt;string&gt;	SubProcess, List&lt;string&gt;	DataType, string descPattern = null)
+			Functionality: Recursively processes child nodes from specified sheets, handling hierarchical levels and complex data types.
+			Method2: FindSimilarSheetNames(string desiredSheetName, List&lt;string&gt; sheetNames)
+			Functionality: Identifies sheets with similar names to help handle variations in sheet naming.
+			Method3: IsBasicDataType(string dataType, List&lt;string&gt; DataType)
+			Functionality: Determines if a data type is considered basic based on a predefined list.
+			Method4: CheckForPatternMatch(string data)
+			Functionality: Validates if a string matches a specific pattern, useful for data integrity checks.
+			Method5: ReplaceValues(string processedString, string replacementXx, string replacementYy)
+			Functionality: Replaces placeholders in strings with specified values for dynamic data handling.</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
+		<PackageTags>OpcUaConversion:
+--&gt; FileToJSON(ExcelPackage package, List&lt;string&gt; SubProcess, List&lt;string&gt; DataType)
+--&gt; JSONToFile(OPCNode opcNode,List&lt;OPCPage&gt; pages)
+PLCConversion:
+--&gt; ExcelToJSON(string filePath)
+--&gt; JSONToExcel(PLCDictionaryDataType plcConfig, string filePath)
+		</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>
+			<![CDATA[Version: 1.0.13
+Release Date: July 15, 2024
+Summary
+Fixed PLC json to excel and excel to json bugs
+    ]]>
+		</PackageReleaseNotes>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>CougarConfigSupport</Title>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="7.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	<None Update="README.md">
+		<Pack>True</Pack>
+		<PackagePath>\</PackagePath>
+	</None>
+  </ItemGroup>
+
+</Project>
